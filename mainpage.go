@@ -2,8 +2,14 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 )
 
+func handlerFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "<h1>Welcome to the Site</h1>")
+}
+
 func main() {
-	fmt.Println("Test the world")
+	http.HandleFunc("/", handlerFunc)
+	http.ListenAndServe(":3000", nil)
 }
