@@ -57,6 +57,9 @@ builds/**/images/*
 # Anything under a tmp folder
 **/tmp/*
 
+# Anything under the expiremental folder
+**/exp/*
+
 # Don't include our binary
 GoProj.com
 images/**
