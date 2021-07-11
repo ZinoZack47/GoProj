@@ -25,6 +25,7 @@ func faq(w http.ResponseWriter, r *http.Request) {
 
 func error404notfound(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusNotFound)
 	fmt.Fprint(w, `<h1>ERROR 404: The page you are trying to reach does not exist.</h1>
 	<p>if you keep getting this page please contact us at out email.</p>`)
 }
