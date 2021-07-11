@@ -58,7 +58,7 @@ builds/**/images/*
 **/tmp/*
 
 # Don't include our binary
-GoProj.git
+GoProj.com
 images/**
 
 .config
