@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/ZinoZack47/GoProj.com/views"
@@ -9,8 +8,10 @@ import (
 )
 
 var (
-	homeView    *views.View
-	contactView *views.View
+	homeView     *views.View
+	contactView  *views.View
+	faqView      *views.View
+	error404View *views.View
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -29,20 +30,24 @@ func contact(w http.ResponseWriter, r *http.Request) {
 
 func faq(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprintf(w, "<h6>Is fallout 76 good?</h6>")
-	fmt.Fprintf(w, "<p>Yes it is banned for racism. Thread Locked!</p>")
+	if err := faqView.Template.Execute(w, r); err != nil {
+		panic(err)
+	}
 }
 
 func error404notfound(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusNotFound)
-	fmt.Fprint(w, `<h1>ERROR 404: The page you are trying to reach does not exist.</h1>
-	<p>if you keep getting this page please contact us at out email.</p>`)
+	if err := error404View.Template.Execute(w, r); err != nil {
+		panic(err)
+	}
 }
 
 func main() {
 	homeView = views.NewView("views/home.gohtml")
 	contactView = views.NewView("views/contact.gohtml")
+	faqView = views.NewView("views/faq.gohtml")
+	error404View = views.NewView("views/error404.gohtml")
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", home)
