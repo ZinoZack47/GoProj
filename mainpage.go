@@ -55,8 +55,10 @@ func main() {
 	r.HandleFunc("/faq", faq)
 	r.NotFoundHandler = http.HandlerFunc(error404notfound)
 
-	r.Handle("/css/", http.StripPrefix("/css", http.FileServer(http.Dir("./views/layouts/css"))))
-	r.Handle("/assets/", http.StripPrefix("/assets", http.FileServer(http.Dir("./views/layouts/assets"))))
+	r.PathPrefix("/css/").
+		Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("./views/layouts/css"))))
+	r.PathPrefix("/assets/").
+		Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("./views/layouts/assets"))))
 
 	http.ListenAndServe(":3000", r)
 }
