@@ -15,22 +15,22 @@ var (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
+	w.Header().Set("Content-Type", "text/html;charset=utf8")
 	must(homeView.Render(w, r))
 }
 
 func contact(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
+	w.Header().Set("Content-Type", "text/html;charset=utf8")
 	must(contactView.Render(w, r))
 }
 
 func faq(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
+	w.Header().Set("Content-Type", "text/html;charset=utf8")
 	must(faqView.Render(w, r))
 }
 
 func error404notfound(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
+	w.Header().Set("Content-Type", "text/html;charset=utf8")
 	w.WriteHeader(http.StatusNotFound)
 	must(error404View.Render(w, r))
 }
