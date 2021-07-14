@@ -16,31 +16,23 @@ var (
 
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	if err := homeView.Template.ExecuteTemplate(w, homeView.Layout, r); err != nil {
-		panic(err)
-	}
+	must(homeView.Render(w, r))
 }
 
 func contact(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	if err := contactView.Template.ExecuteTemplate(w, contactView.Layout, r); err != nil {
-		panic(err)
-	}
+	must(contactView.Render(w, r))
 }
 
 func faq(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	if err := faqView.Template.ExecuteTemplate(w, faqView.Layout, r); err != nil {
-		panic(err)
-	}
+	must(faqView.Render(w, r))
 }
 
 func error404notfound(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusNotFound)
-	if err := error404View.Template.ExecuteTemplate(w, error404View.Layout, r); err != nil {
-		panic(err)
-	}
+	must(error404View.Render(w, r))
 }
 
 func main() {
@@ -61,4 +53,10 @@ func main() {
 		Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("./views/layouts/assets"))))
 
 	http.ListenAndServe(":3000", r)
+}
+
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
